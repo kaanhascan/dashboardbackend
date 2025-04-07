@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ygt.dashboard.Model.User;
 
 @Repository
-public interface userRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long>{
 
     Optional<User> findByUsernameAndPassword(String username, String password);
     

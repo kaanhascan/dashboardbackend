@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ygt.dashboard.DTO.LoginRequest;
-import com.ygt.dashboard.Service.userService;
+import com.ygt.dashboard.Service.UserService;
 
 
 @RestController
@@ -22,7 +22,7 @@ import com.ygt.dashboard.Service.userService;
 public class AuthController {
     
     @Autowired
-    private userService userService; 
+    private UserService userService; 
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {

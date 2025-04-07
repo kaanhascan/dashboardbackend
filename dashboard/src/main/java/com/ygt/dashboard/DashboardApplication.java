@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.ygt.dashboard.Repository.userRepository;
+import com.ygt.dashboard.Repository.UserRepository;
 
 @SpringBootApplication
 public class DashboardApplication {
@@ -16,9 +16,9 @@ public class DashboardApplication {
 
 	//Bağlantı testi yaptım
     @Bean
-    public CommandLineRunner testConnection(userRepository userRepository) {
+    public CommandLineRunner testConnection(UserRepository userRepository) {
         return args -> {
-            if(userRepository.count() > 1){
+            if(userRepository.count() >= 1){
                 System.out.println("Bağlant Başarılı");
             }
             else{

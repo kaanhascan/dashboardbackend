@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ygt.dashboard.DTO.LoginRequest;
 import com.ygt.dashboard.Model.User;
-import com.ygt.dashboard.Repository.userRepository;
+import com.ygt.dashboard.Repository.UserRepository;
 
 import jakarta.persistence.EntityManager;
 
 @Service
-public class userService {
+public class UserService {
     @Autowired
     private EntityManager entityManager;
 
     @Autowired
-    private userRepository userRepository;
+    private UserRepository userRepository;
 
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         Optional<User> userOpt = userRepository.findByUsernameAndPassword(
@@ -30,10 +30,13 @@ public class userService {
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
+            String schema = "user" + user.getId();
+            setSchema(schema);
+            
             return ResponseEntity.ok().body(Map.of(
                 "message", "Login successful",
                 "userId", user.getId(),
-                "schema", "user" + user.getId() 
+                "schema", schema
             ));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -42,6 +45,8 @@ public class userService {
     }
 
     public void setSchema(String schema) {
+        User user = new User();
+        schema = "user"+user.getId();
         entityManager.createNativeQuery("SET search_path TO " + schema).executeUpdate();
     }
 }
