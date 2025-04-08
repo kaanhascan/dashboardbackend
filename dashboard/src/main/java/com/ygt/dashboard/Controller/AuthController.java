@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ygt.dashboard.DTO.LoginRequest;
-import com.ygt.dashboard.Service.UserService;
+import com.ygt.dashboard.Service.UserService;   
 
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "localhost:8000")
 public class AuthController {
     
     @Autowired
@@ -24,4 +24,5 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         return userService.login(loginRequest);
     }
+
 }
