@@ -35,7 +35,7 @@ public class Production {
     @Column(name = "quality_rate")
     private Double qualityRate;
 
-    @Column(name = "ınsptector") //bu doğru mu aq
+    @Column(name = "inspector") 
     private String inspector;
 
     @Column(name = "status")
@@ -66,5 +66,5 @@ public class Production {
     private LocalDate productionDate;
 
     @Column(name = "user_id")
-    private Long id;
+    private Long userId;
 }

@@ -14,7 +14,7 @@ import com.ygt.dashboard.Service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "localhost:8000")
+@CrossOrigin("*")
 public class AuthController {
     
     @Autowired

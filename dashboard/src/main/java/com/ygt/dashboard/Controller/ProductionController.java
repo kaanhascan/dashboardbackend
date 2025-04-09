@@ -19,19 +19,19 @@ import com.ygt.dashboard.Service.ProductionService;
 
 @RestController
 @RequestMapping("/api/production")
-@CrossOrigin(origins = "localhost:8000")
+@CrossOrigin("*")
 public class ProductionController {
     
     @Autowired
     private ProductionService productionService;
 
 
-    @GetMapping("/getall")
+    @GetMapping
     public List<Production> getAll() {
         return productionService.getAll();
     }
 
-    @GetMapping("/getbyid/{id}")
+    @GetMapping("/{id}")
     public Production getById(@PathVariable Long id) {
         return productionService.getById(id);
     }
