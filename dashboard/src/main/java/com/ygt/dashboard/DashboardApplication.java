@@ -19,7 +19,7 @@ public class DashboardApplication {
     public CommandLineRunner testConnection(UserRepository userRepository) {
         return args -> {
             if(userRepository.count() >= 1){
-                System.out.println("Bağlant Başarılı");
+                System.out.println("Bağlantı Başarılı");
             }
             else{
                 System.out.println("Bağlantı Başarısız");
