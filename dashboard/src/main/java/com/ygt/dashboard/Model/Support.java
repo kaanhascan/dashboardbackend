@@ -31,4 +31,7 @@ public class Support {
 
     @Column(name = "message")
     private String message;
+
+    @Column(name = "userId")
+    private Long userId;
 }
