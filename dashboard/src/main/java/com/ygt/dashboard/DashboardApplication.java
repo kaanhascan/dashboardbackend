@@ -7,10 +7,20 @@ import org.springframework.context.annotation.Bean;
 
 import com.ygt.dashboard.Repository.UserRepository;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @SpringBootApplication
 public class DashboardApplication {
 
 	public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.configure()
+                .directory("dashboard") 
+                .filename(".env") 
+                .load();
+
+        System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
+        System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
+
 		SpringApplication.run(DashboardApplication.class, args);
 	}
 
@@ -19,7 +29,7 @@ public class DashboardApplication {
     public CommandLineRunner testConnection(UserRepository userRepository) {
         return args -> {
             if(userRepository.count() >= 1){
-                System.out.println("Bağlant Başarılı");
+                System.out.println("Bağlantı Başarılı");
             }
             else{
                 System.out.println("Bağlantı Başarısız");
