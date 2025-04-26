@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DashboardApplication<dashboard>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ygt.dashboard.DashboardApplication",
+            "projectName": "dashboard",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

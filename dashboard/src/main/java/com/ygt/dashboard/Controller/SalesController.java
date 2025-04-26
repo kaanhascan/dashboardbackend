@@ -31,8 +31,6 @@ public class SalesController {
             return salesService.getAll();
     }
 
-    
-
     @GetMapping("/{id}")
     public Sales getById(@PathVariable Long id) {
         return salesService.getById(id);
