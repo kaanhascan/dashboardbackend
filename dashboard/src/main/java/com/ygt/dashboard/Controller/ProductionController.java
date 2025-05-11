@@ -27,8 +27,9 @@ public class ProductionController {
 
 
     @GetMapping
-    public List<Production> getAll() {
-        return productionService.getAll();
+    public ResponseEntity<List<Production>> getAll() {
+        List<Production> productions = productionService.getAll();
+        return ResponseEntity.ok(productions);
     }
 
     @GetMapping("/{id}")
