@@ -14,7 +14,7 @@ public class DashboardApplication {
 
 	public static void main(String[] args) {
         Dotenv dotenv = Dotenv.configure()
-                .directory("dashboard") 
+                .directory("./dashboard") 
                 .filename(".env") 
                 .load();
 
