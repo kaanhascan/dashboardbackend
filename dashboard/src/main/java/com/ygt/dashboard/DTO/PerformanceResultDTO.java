@@ -8,10 +8,10 @@ public class PerformanceResultDTO {
     private long memoryUsedKb;
     private int recordCount;
     private List<Production> data;
-    private double cpuPercent;
+    private int cpuPercent;
 
 
-    public PerformanceResultDTO(long durationMs, long memoryUsedKb, int recordCount,double cpuPercent, List<Production> data) {
+    public PerformanceResultDTO(long durationMs, long memoryUsedKb, int recordCount,int cpuPercent, List<Production> data) {
         this.durationMs = durationMs;
         this.memoryUsedKb = memoryUsedKb;
         this.recordCount = recordCount;
@@ -45,10 +45,10 @@ public class PerformanceResultDTO {
     public void setData(List<Production> data) {
         this.data = data;
     }
-    public double getCpuPercent() {
+    public int getCpuPercent() {
         return cpuPercent;
     }
-    public void setCpuPercent(double cpuPercent) {
+    public void setCpuPercent(int cpuPercent) {
         this.cpuPercent = cpuPercent;
     }
 }

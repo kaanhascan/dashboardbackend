@@ -1,8 +1,4 @@
 package com.ygt.dashboard.Service;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +25,7 @@ public class PerformanceService {
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;
-        double cpuPercent = getCpuLoadPercentage();
+        int cpuPercent = getCpuLoadPercentage();
 
         return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(),cpuPercent, data);
     }
@@ -39,20 +35,21 @@ public class PerformanceService {
         return (rt.totalMemory() - rt.freeMemory()) / 1024;
     
     }
-    public double getCpuLoadPercentage() {
+    public int getCpuLoadPercentage() {
         SystemInfo systemInfo = new SystemInfo();
         HardwareAbstractionLayer hal = systemInfo.getHardware();
         CentralProcessor processor = hal.getProcessor();
 
         long[] prevTicks = processor.getSystemCpuLoadTicks();
-    
+
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000); 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        double load = processor.getSystemCpuLoadBetweenTicks(prevTicks);
-        return load * 100;
-    }
+
+    double load = processor.getSystemCpuLoadBetweenTicks(prevTicks);
+    return (int) (load * 100); 
+}
 }
 
