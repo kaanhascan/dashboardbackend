@@ -1,23 +1,19 @@
 package com.ygt.dashboard.DTO;
 
-import java.util.List;
-import com.ygt.dashboard.Model.Production;
 
 public class PerformanceResultDTO {
     private long durationMs;
     private long memoryUsedKb;
     private int recordCount;
-    private List<Production> data;
     private int cpuPercent;
 
 
-    public PerformanceResultDTO(long durationMs, long memoryUsedKb, int recordCount,int cpuPercent, List<Production> data) {
+    public PerformanceResultDTO(long durationMs, long memoryUsedKb, int recordCount,int cpuPercent) {
         this.durationMs = durationMs;
         this.memoryUsedKb = memoryUsedKb;
         this.recordCount = recordCount;
 
         this.cpuPercent = cpuPercent;
-        this.data = data;
         
     }
 
@@ -38,12 +34,6 @@ public class PerformanceResultDTO {
     }
     public void setRecordCount(int recordCount) {
         this.recordCount = recordCount;
-    }
-    public List<Production> getData() {
-        return data;
-    }
-    public void setData(List<Production> data) {
-        this.data = data;
     }
     public int getCpuPercent() {
         return cpuPercent;

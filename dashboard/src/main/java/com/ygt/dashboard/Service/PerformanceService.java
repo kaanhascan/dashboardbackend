@@ -27,7 +27,7 @@ public class PerformanceService {
         long duration = (System.nanoTime() - start) / 1_000_000;
         int cpuPercent = getCpuLoadPercentage();
 
-        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(),cpuPercent, data);
+        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(),cpuPercent);
     }
 
     private long getUsedMemory() {
