@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ygt.dashboard.DTO.PerformanceResultDTO;
-import com.ygt.dashboard.Model.Production;
+import com.ygt.dashboard.DTO.ProductionDTO;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -21,7 +21,7 @@ public class PerformanceService {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
-        List<Production> data = productionService.getAll();
+        List<ProductionDTO> data = productionService.getAll();
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;

@@ -4,9 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
+import com.ygt.dashboard.DTO.ProductionDTO;
 import com.ygt.dashboard.Model.Production;
 import com.ygt.dashboard.Repository.ProductionRepository;
+
+
 
 @Service
 public class ProductionService {
@@ -14,9 +19,10 @@ public class ProductionService {
     @Autowired
     private ProductionRepository productionRepository;
 
-
-    public List<Production> getAll() {
-        return productionRepository.findAll();
+    @Cacheable("allProductions")
+    @Transactional(readOnly = true)
+    public List<ProductionDTO> getAll() {
+        return productionRepository.getAllProductionDTOs();
     }
 
     public Production getById(Long id) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ygt.dashboard.DTO.ProductionDTO;
 import com.ygt.dashboard.Model.Production;
 import com.ygt.dashboard.Service.ProductionService;
 
@@ -27,8 +28,8 @@ public class ProductionController {
 
 
     @GetMapping
-    public ResponseEntity<List<Production>> getAll() {
-        List<Production> productions = productionService.getAll();
+    public ResponseEntity<List<ProductionDTO>> getAll() {
+        List<ProductionDTO> productions = productionService.getAll();
         return ResponseEntity.ok(productions);
     }
 
