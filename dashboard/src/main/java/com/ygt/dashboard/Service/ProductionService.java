@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.cache.annotation.Cacheable;
+
 
 import com.ygt.dashboard.DTO.ProductionDTO;
 import com.ygt.dashboard.Model.Production;
@@ -19,7 +19,7 @@ public class ProductionService {
     @Autowired
     private ProductionRepository productionRepository;
 
-    @Cacheable("allProductions")
+
     @Transactional(readOnly = true)
     public List<ProductionDTO> getAll() {
         return productionRepository.getAllProductionDTOs();
