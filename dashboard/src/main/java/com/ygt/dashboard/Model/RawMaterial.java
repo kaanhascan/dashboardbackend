@@ -8,11 +8,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "raw_materials")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RawMaterial {
     
     @Id
@@ -51,6 +57,6 @@ public class RawMaterial {
     private Double totalMaterial;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 }
 
