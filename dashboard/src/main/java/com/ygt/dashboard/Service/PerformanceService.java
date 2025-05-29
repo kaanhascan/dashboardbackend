@@ -50,6 +50,6 @@ public class PerformanceService {
 
     double load = processor.getSystemCpuLoadBetweenTicks(prevTicks);
     return (int) (load * 100); 
-}
+    }
 }
 
