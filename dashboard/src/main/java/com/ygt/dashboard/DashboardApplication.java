@@ -9,7 +9,6 @@ import com.ygt.dashboard.Repository.UserRepository;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-
 @SpringBootApplication
 public class DashboardApplication {
 
