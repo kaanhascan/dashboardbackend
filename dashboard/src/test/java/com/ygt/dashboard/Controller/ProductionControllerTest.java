@@ -69,6 +69,38 @@ public class ProductionControllerTest {
     }
 
     @Test
+    public void testGetById() throws Exception {
+        Production saved = productionRepository.save(Production.builder()
+            .productName("Test Product")
+            .batchNumber("B200")
+            .unitsProduced(200)
+            .defects(1)
+            .qualityRate(98.0)
+            .inspector("Inspector X")
+            .status("In Progress")
+            .cycleTime(1.3)
+            .productionRate(85.0)
+            .machineEfficiency(92.0)
+            .targetRate(88.0)
+            .unitHour(1.6)
+            .defectRate(1.2)
+            .workingHour(7.0)
+            .productionDate(LocalDate.now())
+            .userId(20L)
+            .build());
+
+
+        mockMvc.perform(get("/api/production/" + saved.getProductionId()))
+            .andExpect(status().isOk());
+    }
+
+    @Test 
+    public void testGetByIdNotFound() throws Exception {
+        mockMvc.perform(get("/api/production/1232131231"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testUpdateProduction() throws Exception {
         Production saved = productionRepository.save(Production.builder()
             .productName("Test")

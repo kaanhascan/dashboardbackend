@@ -34,8 +34,10 @@ public class ProductionController {
     }
 
     @GetMapping("/{id}")
-    public Production getById(@PathVariable Long id) {
-        return productionService.getById(id);
+    public ResponseEntity<Production> getById(@PathVariable Long id) {
+        Production existing = productionService.getById(id);
+        if(existing != null) return ResponseEntity.ok(existing);
+        else return ResponseEntity.notFound().build();
     }
 
     @PostMapping
