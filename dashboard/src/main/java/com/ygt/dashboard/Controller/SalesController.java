@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.ygt.dashboard.DTO.SalesDTO;
 import com.ygt.dashboard.Model.Sales;
 import com.ygt.dashboard.Service.SalesService;
 
@@ -27,13 +29,16 @@ public class SalesController {
     private SalesService salesService;
 
     @GetMapping
-    public List<Sales> getAll() {
-            return salesService.getAll();
+    public ResponseEntity<List<SalesDTO>> getAll() {
+        List<SalesDTO> sales= salesService.getAll();
+        return ResponseEntity.ok(sales);
     }
 
     @GetMapping("/{id}")
-    public Sales getById(@PathVariable Long id) {
-        return salesService.getById(id);
+    public ResponseEntity<Sales> getById(@PathVariable Long id) {
+        Sales existing = salesService.getById(id);
+        if(existing == null) return ResponseEntity.notFound().build();
+        else return ResponseEntity.ok(existing);
     }
 
     @PostMapping

@@ -1,6 +1,7 @@
 package com.ygt.dashboard.Service;
 
 import com.ygt.dashboard.Repository.SalesRepository;
+import com.ygt.dashboard.DTO.SalesDTO;
 import com.ygt.dashboard.Model.Sales;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,13 +30,13 @@ public class SalesServiceTest {
 
     @Test
     void testGetAll() {
-        Sales sales1 = new Sales();
-        Sales sales2 = new Sales();
-        when(salesRepository.findAll()).thenReturn(Arrays.asList(sales1, sales2));
+        SalesDTO sales1 = new SalesDTO();
+        SalesDTO sales2 = new SalesDTO();
+        when(salesRepository.getAllSalesDTOs()).thenReturn(Arrays.asList(sales1, sales2));
 
-        List<Sales> result = salesService.getAll();
+        List<SalesDTO> result = salesService.getAll();
         assertEquals(2, result.size());
-        verify(salesRepository,times(1)).findAll();
+        verify(salesRepository,times(1)).getAllSalesDTOs();
     }
 
 

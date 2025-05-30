@@ -58,5 +58,5 @@ public class Sales {
     private String salesAddress;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 }

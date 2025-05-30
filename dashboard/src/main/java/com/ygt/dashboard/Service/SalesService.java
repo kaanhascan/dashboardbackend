@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ygt.dashboard.DTO.SalesDTO;
 import com.ygt.dashboard.Model.Sales;
 import com.ygt.dashboard.Repository.SalesRepository;
 
@@ -14,8 +15,8 @@ public class SalesService {
     @Autowired
     private SalesRepository salesRepository;
 
-    public List<Sales> getAll(){
-        return salesRepository.findAll();
+    public List<SalesDTO> getAll(){
+        return salesRepository.getAllSalesDTOs();
     }
 
     public Sales getById(Long id){
