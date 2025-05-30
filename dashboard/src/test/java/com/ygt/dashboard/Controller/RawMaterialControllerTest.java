@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ygt.dashboard.Model.RawMaterial;
 import com.ygt.dashboard.Repository.RawMaterialRepository;
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
@@ -64,5 +65,93 @@ public class RawMaterialControllerTest {
             .andExpect(jsonPath("$.reorderPoint").value(40))
             .andExpect(jsonPath("$.pendingOrders").value(2))
             .andExpect(jsonPath("$.currentStock").value(4));
+    }
+
+    @Test 
+    public void testgetByIdRawMaterial() throws Exception{
+        RawMaterial rawMaterial = rawMaterialRepository.save(RawMaterial.builder()
+            .materialsName("Test Material")
+            .monthlyExpenses(1000)
+            .lastOrderDate(LocalDate.now())
+            .materialUnit("kg")
+            .reorderPoint(40)
+            .pendingOrders(2)
+            .currentStock(4)
+            .materialStatus("test status")
+            .keySuppliers("test supplier")
+            .totalMaterial(5.0)
+            .userId(10L)
+            .build());
+
+        mockMvc.perform(get("/api/raw-materials/" + rawMaterial.getMaterialsId()))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetByIdRawMaterialNotFound() throws Exception {
+        mockMvc.perform(get("/api/raw-materials/9999"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testUpdateRawMaterial() throws Exception {
+        RawMaterial existingMaterial = rawMaterialRepository.save(RawMaterial.builder()
+            .materialsName("Test Material")
+            .monthlyExpenses(1000)
+            .lastOrderDate(LocalDate.now())
+            .materialUnit("kg")
+            .reorderPoint(40)
+            .pendingOrders(2)
+            .currentStock(4)
+            .materialStatus("test status")
+            .keySuppliers("test supplier")
+            .totalMaterial(5.0)
+            .userId(10L)
+            .build());
+
+        RawMaterial updatedMaterial = RawMaterial.builder()
+            .materialsId(existingMaterial.getMaterialsId())
+            .materialsName("Updated Material")
+            .monthlyExpenses(1200)
+            .lastOrderDate(LocalDate.now())
+            .materialUnit("kg")
+            .reorderPoint(50)
+            .pendingOrders(3)
+            .currentStock(6)
+            .materialStatus("updated status")
+            .keySuppliers("updated supplier")
+            .totalMaterial(7.0)
+            .userId(10L)
+            .build();
+
+
+        mockMvc.perform(put("/api/raw-materials/" + existingMaterial.getMaterialsId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatedMaterial)))
+            .andExpect(jsonPath("$.materialsName").value("Updated Material"))
+            .andExpect(jsonPath("$.monthlyExpenses").value(1200))
+            .andExpect(status().isOk());
+
+    }
+
+
+    @Test
+    public void testDeleteRawMaterial() throws Exception {
+        RawMaterial existingMaterial = rawMaterialRepository.save(RawMaterial.builder()
+            .materialsName("Test Material")
+            .monthlyExpenses(1000)
+            .lastOrderDate(LocalDate.now())
+            .materialUnit("kg")
+            .reorderPoint(40)
+            .pendingOrders(2)
+            .currentStock(4)
+            .materialStatus("test status")
+            .keySuppliers("test supplier")
+            .totalMaterial(5.0)
+            .userId(10L)
+            .build());
+
+        mockMvc.perform(delete("/api/raw-materials/" + existingMaterial.getMaterialsId()))
+            .andExpect(status().isOk());
     }
 }

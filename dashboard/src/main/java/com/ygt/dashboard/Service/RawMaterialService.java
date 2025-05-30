@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ygt.dashboard.DTO.RawMaterialDTO;
 import com.ygt.dashboard.Model.RawMaterial;
 import com.ygt.dashboard.Repository.RawMaterialRepository;
 
@@ -14,8 +15,8 @@ public class RawMaterialService {
     @Autowired
     private RawMaterialRepository rawMaterialRepository;
 
-    public List<RawMaterial> getAll() {
-        return rawMaterialRepository.findAll();
+    public List<RawMaterialDTO> getAll() {
+        return rawMaterialRepository.getAllRawMaterialDTOs();
     }
 
     public RawMaterial getById(Long id) {

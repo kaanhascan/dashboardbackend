@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ygt.dashboard.Repository.RawMaterialRepository;
+import com.ygt.dashboard.DTO.RawMaterialDTO;
 import com.ygt.dashboard.Model.RawMaterial;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,16 +29,16 @@ public class RawMaterialServiceTest {
     @Test
     void testGetAll() {
  
-        RawMaterial material1 = new RawMaterial();
-        RawMaterial material2 = new RawMaterial();
-        when(rawMaterialRepository.findAll()).thenReturn(Arrays.asList(material1, material2));
+        RawMaterialDTO material1 = new RawMaterialDTO();
+        RawMaterialDTO material2 = new RawMaterialDTO();
+        when(rawMaterialRepository.getAllRawMaterialDTOs()).thenReturn(Arrays.asList(material1, material2));
 
  
-        List<RawMaterial> result = rawMaterialService.getAll();
+        List<RawMaterialDTO> result = rawMaterialService.getAll();
 
 
         assertEquals(2, result.size());
-        verify(rawMaterialRepository, times(1)).findAll();
+        verify(rawMaterialRepository, times(1)).getAllRawMaterialDTOs();
     }
 
     @Test

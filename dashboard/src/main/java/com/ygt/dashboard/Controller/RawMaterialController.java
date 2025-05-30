@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.ygt.dashboard.DTO.RawMaterialDTO;
 import com.ygt.dashboard.Model.RawMaterial;
 import com.ygt.dashboard.Service.RawMaterialService;
 
@@ -26,13 +28,16 @@ public class RawMaterialController {
     private RawMaterialService rawMaterialService;
 
     @GetMapping
-    public List<RawMaterial> getAll() {
-        return rawMaterialService.getAll();
+    public ResponseEntity<List<RawMaterialDTO>> getAll() {
+        List<RawMaterialDTO> rawMaterials= rawMaterialService.getAll();
+        return ResponseEntity.ok(rawMaterials);
     }
 
     @GetMapping("/{id}")
-    public RawMaterial getById(@PathVariable Long id) {
-        return rawMaterialService.getById(id);
+    public ResponseEntity<RawMaterial> getById(@PathVariable Long id) {
+        RawMaterial existing = rawMaterialService.getById(id);
+        if (existing == null) return ResponseEntity.notFound().build();
+        else return ResponseEntity.ok(existing);
     }
 
     @PostMapping
