@@ -9,6 +9,8 @@ import com.ygt.dashboard.DTO.PerformanceResultDTO;
 import com.ygt.dashboard.Service.PerformanceService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -23,5 +25,11 @@ public class PerformanceController {
     public ResponseEntity<PerformanceResultDTO> getProductionFetchPerformance() {
         return ResponseEntity.ok(performanceService.measureProductionFetch());
     }
+
+    @GetMapping("/raw-material-fetch")
+    public ResponseEntity<PerformanceResultDTO> getRawMaterialFetchPerformance() {
+        return ResponseEntity.ok(performanceService.measureRawMaterialFetch());
+    }
+    
 }
 

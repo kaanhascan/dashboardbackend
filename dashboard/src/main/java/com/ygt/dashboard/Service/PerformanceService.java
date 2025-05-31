@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ygt.dashboard.DTO.PerformanceResultDTO;
 import com.ygt.dashboard.DTO.ProductionDTO;
+import com.ygt.dashboard.DTO.RawMaterialDTO;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -17,11 +18,27 @@ public class PerformanceService {
     @Autowired
     private ProductionService productionService;
 
+    @Autowired
+    private RawMaterialService RawMaterialService;
+
     public PerformanceResultDTO measureProductionFetch() {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
         List<ProductionDTO> data = productionService.getAll();
+
+        long memAfter = getUsedMemory();
+        long duration = (System.nanoTime() - start) / 1_000_000;
+        int cpuPercent = getCpuLoadPercentage();
+
+        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(),cpuPercent);
+    }
+
+    public PerformanceResultDTO measureRawMaterialFetch() {
+        long start = System.nanoTime();
+        long memBefore = getUsedMemory();
+
+        List<RawMaterialDTO> data = RawMaterialService.getAll();
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;
