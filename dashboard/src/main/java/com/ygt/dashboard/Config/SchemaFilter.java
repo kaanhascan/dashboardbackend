@@ -25,9 +25,9 @@ public class SchemaFilter extends OncePerRequestFilter{
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException {
+                                HttpServletResponse response,
+                                FilterChain filterChain)
+        throws ServletException, IOException {
 
         String schema = request.getHeader("X-Schema");
 
@@ -38,11 +38,14 @@ public class SchemaFilter extends OncePerRequestFilter{
                 statement.execute("SET search_path TO " + schema);
 
             } catch (SQLException e) {
-                e.printStackTrace(); 
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\":\"Invalid schema: " + schema + "\"}");
+                return; 
             }
         }
 
         filterChain.doFilter(request, response);
-    }   
+    }  
 
 }

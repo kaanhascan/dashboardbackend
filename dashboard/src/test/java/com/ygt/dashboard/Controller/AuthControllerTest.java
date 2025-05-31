@@ -61,6 +61,20 @@ public class AuthControllerTest {
             .andExpect(jsonPath("$.hashedPassword").exists());
     }
 
+   @Test
+    public void testLoginWithInvalidSchema() throws Exception {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("testuser");
+        loginRequest.setPassword("testpassword");
+
+        mockMvc.perform(post("/api/auth/login")
+            .header("X-Schema", "invalid_schema_name")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest)))
+        .andExpect(status().isBadRequest());
+        
+    }
+
     @Test
     public void testLoginWithWrongPassword() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
