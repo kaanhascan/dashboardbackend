@@ -151,6 +151,34 @@ public class ProductionControllerTest {
     }
 
     @Test
+    public void testUpdateProductionNotFound() throws Exception {
+        Production updated = Production.builder()
+            .productionId(999L) 
+            .productName("Non-existent")
+            .batchNumber("B999")
+            .unitsProduced(50)
+            .defects(0)
+            .qualityRate(100.0)
+            .inspector("Inspector Z")
+            .status("Ready")
+            .cycleTime(1.0)
+            .productionRate(90.0)
+            .machineEfficiency(95.0)
+            .targetRate(85.0)
+            .unitHour(1.2)
+            .defectRate(0.5)
+            .workingHour(8.0)
+            .productionDate(LocalDate.now())
+            .userId(30L)
+            .build();
+
+        mockMvc.perform(put("/api/production/999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updated)))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testDeleteProduction() throws Exception {
         Production saved = productionRepository.save(Production.builder()
             .productName("ToDelete")

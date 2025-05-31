@@ -46,7 +46,7 @@ public class ProductionDTO {
         this.productionDate = productionDate;
     }
 
-    // Existing getters remain the same
+    
     public Long getProductionId() {
         return productionId;
     }
