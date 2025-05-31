@@ -134,6 +134,29 @@ public class RawMaterialControllerTest {
 
     }
 
+    @Test
+    public void testUpdateRawMaterialNotFound() throws Exception {
+        RawMaterial updatedMaterial = RawMaterial.builder()
+            .materialsId(9999L)
+            .materialsName("Updated Material")
+            .monthlyExpenses(1200)
+            .lastOrderDate(LocalDate.now())
+            .materialUnit("kg")
+            .reorderPoint(50)
+            .pendingOrders(3)
+            .currentStock(6)
+            .materialStatus("updated status")
+            .keySuppliers("updated supplier")
+            .totalMaterial(7.0)
+            .userId(10L)
+            .build();
+
+        mockMvc.perform(put("/api/raw-materials/9999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatedMaterial)))
+            .andExpect(status().isNotFound());
+    }
+
 
     @Test
     public void testDeleteRawMaterial() throws Exception {
