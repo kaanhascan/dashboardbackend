@@ -137,6 +137,30 @@ public class SalesControllerTest {
     }
 
     @Test
+    public void testUpdateSalesNotFound() throws Exception {
+        Sales updatedSales = Sales.builder()
+            .productId(9999L) // Non-existent ID
+            .productName("Non-existent Product")
+            .totalOrders(10)
+            .productSold(1)
+            .revenue(100.0)
+            .newCustomers(50)
+            .unitsSold(2)
+            .status("available")
+            .topCustomers("Non-existent Customer")
+            .salesDate(LocalDate.now())
+            .unitPrice(50)
+            .salesAddress("123 Non-existent St")
+            .userId(1L)
+            .build();
+
+        mockMvc.perform(put("/api/sales/9999") 
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatedSales)))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testDeleteSales() throws Exception {
         Sales existingSales = salesRepository.save(Sales.builder()
             .productName("Product to Delete")
