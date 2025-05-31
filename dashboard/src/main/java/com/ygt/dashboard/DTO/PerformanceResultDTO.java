@@ -20,25 +20,15 @@ public class PerformanceResultDTO {
     public long getDurationMs() {
         return durationMs;
     }
-    public void setDurationMs(long durationMs) {
-        this.durationMs = durationMs;
-    }
+
     public long getMemoryUsedKb() {
         return memoryUsedKb;
     }
-    public void setMemoryUsedKb(long memoryUsedKb) {
-        this.memoryUsedKb = memoryUsedKb;
-    }
+
     public int getRecordCount() {
         return recordCount;
     }
-    public void setRecordCount(int recordCount) {
-        this.recordCount = recordCount;
-    }
     public int getCpuPercent() {
         return cpuPercent;
-    }
-    public void setCpuPercent(int cpuPercent) {
-        this.cpuPercent = cpuPercent;
     }
 }

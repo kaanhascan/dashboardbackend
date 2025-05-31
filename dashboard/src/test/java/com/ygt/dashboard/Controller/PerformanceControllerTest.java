@@ -49,6 +49,20 @@ public class PerformanceControllerTest {
     }
 
     @Test
+    public void testSalesFetchPerformance() throws Exception {
+        mockMvc.perform(get("/performance/raw-material-fetch"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.durationMs").isNumber())
+            .andExpect(jsonPath("$.memoryUsedKb").isNumber())
+            .andExpect(jsonPath("$.recordCount").isNumber())
+            .andExpect(jsonPath("$.cpuPercent").isNumber())
+            .andExpect(jsonPath("$.durationMs").value(org.hamcrest.Matchers.greaterThanOrEqualTo(0)))
+            .andExpect(jsonPath("$.recordCount").value(org.hamcrest.Matchers.greaterThanOrEqualTo(0)))
+            .andExpect(jsonPath("$.cpuPercent").value(org.hamcrest.Matchers.greaterThanOrEqualTo(0)))
+            .andExpect(jsonPath("$.cpuPercent").value(org.hamcrest.Matchers.lessThanOrEqualTo(100)));
+    }
+
+    @Test
     public void testProductionFetchPerformanceResponseStructure() throws Exception {
         mockMvc.perform(get("/performance/production-fetch"))
             .andExpect(status().isOk())
@@ -60,6 +74,16 @@ public class PerformanceControllerTest {
 
     @Test
     public void testRawMaterialFetchPerformanceResponseStructure() throws Exception {
+        mockMvc.perform(get("/performance/raw-material-fetch"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.durationMs").exists())
+            .andExpect(jsonPath("$.memoryUsedKb").exists())
+            .andExpect(jsonPath("$.recordCount").exists())
+            .andExpect(jsonPath("$.cpuPercent").exists());
+    }
+
+    @Test
+    public void testSalesFetchPerformanceResponseStructure() throws Exception {
         mockMvc.perform(get("/performance/raw-material-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").exists())
@@ -96,6 +120,10 @@ public class PerformanceControllerTest {
                 .andExpect(jsonPath("$.durationMs").isNumber());
                 
             mockMvc.perform(get("/performance/raw-material-fetch"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.durationMs").isNumber());
+            
+            mockMvc.perform(get("/performance/sales-fetch"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.durationMs").isNumber());
         }
