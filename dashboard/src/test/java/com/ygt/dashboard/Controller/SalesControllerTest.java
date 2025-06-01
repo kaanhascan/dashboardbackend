@@ -139,7 +139,7 @@ public class SalesControllerTest {
     @Test
     public void testUpdateSalesNotFound() throws Exception {
         Sales updatedSales = Sales.builder()
-            .productId(9999L) // Non-existent ID
+            .productId(9999L) 
             .productName("Non-existent Product")
             .totalOrders(10)
             .productSold(1)
