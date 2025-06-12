@@ -14,51 +14,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.ygt.dashboard.DTO.RawMaterialDTO;
-import com.ygt.dashboard.Model.RawMaterial;
-import com.ygt.dashboard.Service.RawMaterialService;
+import com.ygt.dashboard.DTO.CommodityDTO;
+import com.ygt.dashboard.Model.Commodity;
+import com.ygt.dashboard.Service.CommodityService;
 
 @RestController
-@RequestMapping("/api/raw-materials")
+@RequestMapping("/api/commodities")
 @CrossOrigin("*")
-public class RawMaterialController {
-    
+public class CommodityController {
     @Autowired
-    private RawMaterialService rawMaterialService;
+    private CommodityService commodityService;
 
     @GetMapping
-    public ResponseEntity<List<RawMaterialDTO>> getAll() {
-        List<RawMaterialDTO> rawMaterials= rawMaterialService.getAll();
-        return ResponseEntity.ok(rawMaterials);
+    public ResponseEntity<List<CommodityDTO>> getAll() {
+        List<CommodityDTO> commodities = commodityService.getAll();
+        return ResponseEntity.ok(commodities);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RawMaterial> getById(@PathVariable Long id) {
-        RawMaterial existing = rawMaterialService.getById(id);
+    public ResponseEntity<Commodity> getById(@PathVariable Long id) {
+        Commodity existing = commodityService.getById(id);
         if (existing == null) return ResponseEntity.notFound().build();
         else return ResponseEntity.ok(existing);
     }
 
     @PostMapping
-    public RawMaterial create(@RequestBody RawMaterial rawMaterial) {
-        return rawMaterialService.save(rawMaterial);
+    public Commodity create(@RequestBody Commodity commodity) {
+        return commodityService.save(commodity);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RawMaterial> update(@PathVariable Long id, @RequestBody RawMaterial updated) {
-        RawMaterial existing = rawMaterialService.getById(id);
+    public ResponseEntity<Commodity> update(@PathVariable Long id, @RequestBody Commodity updated) {
+        Commodity existing = commodityService.getById(id);
         if (existing == null) {
             return ResponseEntity.notFound().build();
         }
-
-        updated.setMaterialsId(id);
-        return ResponseEntity.ok(rawMaterialService.save(updated));
+        updated.setCommId(id);
+        return ResponseEntity.ok(commodityService.save(updated));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        rawMaterialService.delete(id);
+        commodityService.delete(id);
         return ResponseEntity.ok().build();
     }
 } 

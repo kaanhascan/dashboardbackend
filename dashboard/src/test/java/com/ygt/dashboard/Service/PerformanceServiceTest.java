@@ -1,8 +1,8 @@
 package com.ygt.dashboard.Service;
 
+import com.ygt.dashboard.DTO.CommodityDTO;
+import com.ygt.dashboard.DTO.FacProductionDTO;
 import com.ygt.dashboard.DTO.PerformanceResultDTO;
-import com.ygt.dashboard.DTO.ProductionDTO;
-import com.ygt.dashboard.DTO.RawMaterialDTO;
 import com.ygt.dashboard.DTO.SalesDTO;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,10 +20,10 @@ import static org.mockito.Mockito.when;
 public class PerformanceServiceTest {
 
     @Mock
-    private ProductionService productionService;
+    private FacProductionService facProductionService;
 
     @Mock
-    private RawMaterialService rawMaterialService;
+    private CommodityService commodityService;
 
     @Mock
     private SalesService salesService;
@@ -38,8 +38,8 @@ public class PerformanceServiceTest {
 
     @Test
     void testMeasureProductionFetch() {
-        List<ProductionDTO> mockList = Collections.singletonList(new ProductionDTO());
-        when(productionService.getAll()).thenReturn(mockList);
+        List<FacProductionDTO> mockList = Collections.singletonList(new FacProductionDTO());
+        when(facProductionService.getAll()).thenReturn(mockList);
 
         PerformanceResultDTO result = performanceService.measureProductionFetch();
 
@@ -52,8 +52,8 @@ public class PerformanceServiceTest {
 
     @Test
     void testMeasureRawMaterialFetch() {
-        List<RawMaterialDTO> mockList = Collections.singletonList(new RawMaterialDTO());
-        when(rawMaterialService.getAll()).thenReturn(mockList);
+        List<CommodityDTO> mockList = Collections.singletonList(new CommodityDTO());
+        when(commodityService.getAll()).thenReturn(mockList);
 
         PerformanceResultDTO result = performanceService.measureRawMaterialFetch();
         assertNotNull(result);

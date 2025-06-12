@@ -14,17 +14,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "production")
+@Table(name = "facproduction")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Production {
+public class FacProduction {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "production_id")
     private Long productionId;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "product_name")
     private String productName;
@@ -41,7 +44,7 @@ public class Production {
     @Column(name = "quality_rate")
     private Double qualityRate;
 
-    @Column(name = "inspector") 
+    @Column(name = "inspector")
     private String inspector;
 
     @Column(name = "status")
@@ -53,24 +56,18 @@ public class Production {
     @Column(name = "production_rate")
     private Double productionRate;
 
-    @Column(name = "machine_efficiency")
-    private Double machineEfficiency;
-
     @Column(name = "target_rate")
     private Double targetRate;
 
-    @Column(name = "unit_hour")
-    private Double unitHour;
+    @Column(name = "unitproduced_hour")
+    private Double unitproducedHour;
 
     @Column(name = "defect_rate")
     private Double defectRate;
 
-    @Column(name = "working_hour")
-    private Double workingHour;
+    @Column(name = "up_time")
+    private Double upTime;
 
     @Column(name = "production_date")
     private LocalDate productionDate;
-
-    @Column(name = "user_id")
-    private Long userId;
 }

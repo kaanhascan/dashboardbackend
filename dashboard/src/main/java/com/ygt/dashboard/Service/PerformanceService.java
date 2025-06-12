@@ -4,9 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ygt.dashboard.DTO.CommodityDTO;
+import com.ygt.dashboard.DTO.FacProductionDTO;
 import com.ygt.dashboard.DTO.PerformanceResultDTO;
-import com.ygt.dashboard.DTO.ProductionDTO;
-import com.ygt.dashboard.DTO.RawMaterialDTO;
 import com.ygt.dashboard.DTO.SalesDTO;
 
 import oshi.SystemInfo;
@@ -17,10 +17,10 @@ import oshi.hardware.HardwareAbstractionLayer;
 @Service
 public class PerformanceService {
     @Autowired
-    private ProductionService productionService;
+    private FacProductionService facProductionService;
 
     @Autowired
-    private RawMaterialService RawMaterialService;
+    private CommodityService CommodityService;
 
     @Autowired
     private SalesService SalesService;
@@ -29,7 +29,7 @@ public class PerformanceService {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
-        List<ProductionDTO> data = productionService.getAll();
+        List<FacProductionDTO> data = facProductionService.getAll();
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;
@@ -42,7 +42,7 @@ public class PerformanceService {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
-        List<RawMaterialDTO> data = RawMaterialService.getAll();
+        List<CommodityDTO> data = CommodityService.getAll();
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;

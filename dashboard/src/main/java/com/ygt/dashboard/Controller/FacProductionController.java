@@ -14,51 +14,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ygt.dashboard.DTO.ProductionDTO;
-import com.ygt.dashboard.Model.Production;
-import com.ygt.dashboard.Service.ProductionService;
+import com.ygt.dashboard.DTO.FacProductionDTO;
+import com.ygt.dashboard.Model.FacProduction;
+import com.ygt.dashboard.Service.FacProductionService;
 
 @RestController
-@RequestMapping("/api/production")
+@RequestMapping("/api/facproduction")
 @CrossOrigin("*")
-public class ProductionController {
+public class FacProductionController {
     
     @Autowired
-    private ProductionService productionService;
+    private FacProductionService facProductionService;
 
 
     @GetMapping
-    public ResponseEntity<List<ProductionDTO>> getAll() {
-        List<ProductionDTO> productions = productionService.getAll();
-        return ResponseEntity.ok(productions);
+    public ResponseEntity<List<FacProductionDTO>> getAll() {
+        List<FacProductionDTO> facProductions = facProductionService.getAll();
+        return ResponseEntity.ok(facProductions);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Production> getById(@PathVariable Long id) {
-        Production existing = productionService.getById(id);
+    public ResponseEntity<FacProduction> getById(@PathVariable Long id) {
+        FacProduction existing = facProductionService.getById(id);
         if(existing != null) return ResponseEntity.ok(existing);
         else return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Production create(@RequestBody Production production) {
-        return productionService.save(production);
+    public FacProduction create(@RequestBody FacProduction facProduction) {
+        return facProductionService.save(facProduction);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Production> update(@PathVariable Long id, @RequestBody Production updated) {
-        Production existing = productionService.getById(id);
+    public ResponseEntity<FacProduction> update(@PathVariable Long id, @RequestBody FacProduction updated) {
+        FacProduction existing = facProductionService.getById(id);
         if (existing == null) {
             return ResponseEntity.notFound().build();
         }
 
         updated.setProductionId(id);
-        return ResponseEntity.ok(productionService.save(updated));
+        return ResponseEntity.ok(facProductionService.save(updated));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        productionService.delete(id);
+        facProductionService.delete(id);
         return ResponseEntity.ok().build();
     }
 }

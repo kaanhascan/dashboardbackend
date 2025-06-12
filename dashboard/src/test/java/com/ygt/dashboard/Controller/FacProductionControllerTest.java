@@ -1,8 +1,9 @@
 package com.ygt.dashboard.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ygt.dashboard.Model.Production;
-import com.ygt.dashboard.Repository.ProductionRepository;
+import com.ygt.dashboard.Model.FacProduction;
+import com.ygt.dashboard.Repository.FacProductionRepository;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class ProductionControllerTest {
+public class FacProductionControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private ProductionRepository productionRepository;
+    private FacProductionRepository facProductionRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     public void testCreateProduction() throws Exception {
-        Production production = Production.builder()
+        FacProduction facProduction = FacProduction.builder()
             .productName("Test Product")
             .batchNumber("B100")
             .unitsProduced(100)
@@ -43,18 +44,17 @@ public class ProductionControllerTest {
             .status("Completed")
             .cycleTime(1.2)
             .productionRate(80.0)
-            .machineEfficiency(90.0)
             .targetRate(85.0)
-            .unitHour(1.5)
+            .unitproducedHour(1.5)
             .defectRate(1.5)
-            .workingHour(8.0)
+            .upTime(8.0)
             .productionDate(LocalDate.now())
             .userId(10L)
             .build();
 
-        mockMvc.perform(post("/api/production")
+        mockMvc.perform(post("/api/facproduction")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(production)))
+                .content(objectMapper.writeValueAsString(facProduction)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.productName").value("Test Product"))
             .andExpect(jsonPath("$.batchNumber").value("B100"))
@@ -64,13 +64,13 @@ public class ProductionControllerTest {
     @Test
     public void testGetAllProductions() throws Exception {
 
-        mockMvc.perform(get("/api/production"))
+        mockMvc.perform(get("/api/facproduction"))
             .andExpect(status().isOk());
     }
 
     @Test
     public void testGetById() throws Exception {
-        Production saved = productionRepository.save(Production.builder()
+        FacProduction saved = facProductionRepository.save(FacProduction.builder()
             .productName("Test Product")
             .batchNumber("B200")
             .unitsProduced(200)
@@ -80,29 +80,28 @@ public class ProductionControllerTest {
             .status("In Progress")
             .cycleTime(1.3)
             .productionRate(85.0)
-            .machineEfficiency(92.0)
             .targetRate(88.0)
-            .unitHour(1.6)
+            .unitproducedHour(1.6)
             .defectRate(1.2)
-            .workingHour(7.0)
+            .upTime(7.0)
             .productionDate(LocalDate.now())
             .userId(20L)
             .build());
 
 
-        mockMvc.perform(get("/api/production/" + saved.getProductionId()))
+        mockMvc.perform(get("/api/facproduction/" + saved.getProductionId()))
             .andExpect(status().isOk());
     }
 
     @Test 
     public void testGetByIdNotFound() throws Exception {
-        mockMvc.perform(get("/api/production/1232131231"))
+        mockMvc.perform(get("/api/facproduction/1232131231"))
             .andExpect(status().isNotFound());
     }
 
     @Test
     public void testUpdateProduction() throws Exception {
-        Production saved = productionRepository.save(Production.builder()
+        FacProduction saved = facProductionRepository.save(FacProduction.builder()
             .productName("Test")
             .batchNumber("B123")
             .unitsProduced(100)
@@ -112,17 +111,16 @@ public class ProductionControllerTest {
             .status("In Progress")
             .cycleTime(1.5)
             .productionRate(75.0)
-            .machineEfficiency(88.0)
             .targetRate(80.0)
-            .unitHour(1.4)
+            .unitproducedHour(1.4)
             .defectRate(2.0)
-            .workingHour(7.5)
+            .upTime(6.0)
             .productionDate(LocalDate.now())
             .userId(5L)
             .build());
 
 
-        Production updated = Production.builder()
+            FacProduction updated = FacProduction.builder()
             .productionId(saved.getProductionId())
             .productName("Updated Name")
             .batchNumber(saved.getBatchNumber())
@@ -133,16 +131,15 @@ public class ProductionControllerTest {
             .status("Completed")
             .cycleTime(saved.getCycleTime())
             .productionRate(saved.getProductionRate())
-            .machineEfficiency(saved.getMachineEfficiency())
             .targetRate(saved.getTargetRate())
-            .unitHour(saved.getUnitHour())
+            .unitproducedHour(saved.getUnitproducedHour())
             .defectRate(saved.getDefectRate())
-            .workingHour(saved.getWorkingHour())
+            .upTime(saved.getUpTime())
             .productionDate(saved.getProductionDate())
             .userId(saved.getUserId())
             .build();
 
-        mockMvc.perform(put("/api/production/" + saved.getProductionId())
+        mockMvc.perform(put("/api/facproduction/" + saved.getProductionId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updated)))
             .andExpect(status().isOk())
@@ -152,7 +149,7 @@ public class ProductionControllerTest {
 
     @Test
     public void testUpdateProductionNotFound() throws Exception {
-        Production updated = Production.builder()
+        FacProduction updated = FacProduction.builder()
             .productionId(999L) 
             .productName("Non-existent")
             .batchNumber("B999")
@@ -163,16 +160,15 @@ public class ProductionControllerTest {
             .status("Ready")
             .cycleTime(1.0)
             .productionRate(90.0)
-            .machineEfficiency(95.0)
             .targetRate(85.0)
-            .unitHour(1.2)
+            .unitproducedHour(1.2)
             .defectRate(0.5)
-            .workingHour(8.0)
+            .upTime(8.0)
             .productionDate(LocalDate.now())
             .userId(30L)
             .build();
 
-        mockMvc.perform(put("/api/production/999")
+        mockMvc.perform(put("/api/facproduction/999")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updated)))
             .andExpect(status().isNotFound());
@@ -180,7 +176,7 @@ public class ProductionControllerTest {
 
     @Test
     public void testDeleteProduction() throws Exception {
-        Production saved = productionRepository.save(Production.builder()
+        FacProduction saved = facProductionRepository.save(FacProduction.builder()
             .productName("ToDelete")
             .batchNumber("B001")
             .unitsProduced(50)
@@ -190,16 +186,15 @@ public class ProductionControllerTest {
             .status("Ready")
             .cycleTime(1.1)
             .productionRate(78.0)
-            .machineEfficiency(85.0)
             .targetRate(80.0)
-            .unitHour(1.3)
+            .unitproducedHour(1.3)
             .defectRate(1.8)
-            .workingHour(8.0)
+            .upTime(8.0)
             .productionDate(LocalDate.now())
             .userId(3L)
             .build());
 
-        mockMvc.perform(delete("/api/production/" + saved.getProductionId()))
+        mockMvc.perform(delete("/api/facproduction/" + saved.getProductionId()))
             .andExpect(status().isOk());
     }
 }

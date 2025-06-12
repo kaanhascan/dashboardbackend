@@ -14,47 +14,47 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "raw_materials")
+@Table(name = "commodity")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RawMaterial {
+public class Commodity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "material_id")
-    private Long materialsId;
+    @Column(name = "comm_id")
+    private Long commId;
 
-    @Column(name = "material_name")            
-    private String materialsName;
+    @Column(name = "comm_name")            
+    private String commName;
 
     @Column(name = "monthly_expenses")
     private Integer monthlyExpenses;
 
-    @Column(name = "last_order_date")
-    private LocalDate lastOrderDate;
+    @Column(name = "last_ordered")
+    private LocalDate lastOrdered;
     
-    @Column(name = "material_unit")
-    private String materialUnit;
+    @Column(name = "unit")
+    private String unit;
 
-    @Column(name = "reorder_point")
-    private Integer reorderPoint;
+    @Column(name = "restock_point")
+    private Integer restockPoint;
 
-    @Column(name = "pending_orders")
-    private Integer pendingOrders;
+    @Column(name = "pending_order")
+    private Integer pendingOrder;
 
     @Column(name = "current_stock")
     private Integer currentStock;
 
-    @Column(name = "material_status")
-    private String materialStatus;
+    @Column(name = "status")
+    private String status;
 
-    @Column(name = "key_suppliers")
-    private String keySuppliers;
+    @Column(name = "suppliers")
+    private String suppliers;
 
-    @Column(name = "total_material")
-    private Double totalMaterial;
+    @Column(name = "total_commodity")
+    private Double totalCommodity;
 
     @Column(name = "user_id")
     private Long userId;
