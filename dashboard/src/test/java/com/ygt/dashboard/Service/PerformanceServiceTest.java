@@ -37,11 +37,11 @@ public class PerformanceServiceTest {
     }
 
     @Test
-    void testMeasureProductionFetch() {
+    void testMeasureFacProductionFetch() {
         List<FacProductionDTO> mockList = Collections.singletonList(new FacProductionDTO());
         when(facProductionService.getAll()).thenReturn(mockList);
 
-        PerformanceResultDTO result = performanceService.measureProductionFetch();
+        PerformanceResultDTO result = performanceService.measureFacProductionFetch();
 
         assertNotNull(result);
         assertEquals(1, result.getRecordCount());
@@ -51,11 +51,11 @@ public class PerformanceServiceTest {
     }
 
     @Test
-    void testMeasureRawMaterialFetch() {
+    void testMeasureCommodityFetch() {
         List<CommodityDTO> mockList = Collections.singletonList(new CommodityDTO());
         when(commodityService.getAll()).thenReturn(mockList);
 
-        PerformanceResultDTO result = performanceService.measureRawMaterialFetch();
+        PerformanceResultDTO result = performanceService.measureCommodityFetch();
         assertNotNull(result);
         assertEquals(1, result.getRecordCount());
         assertTrue(result.getDurationMs() >= 0);

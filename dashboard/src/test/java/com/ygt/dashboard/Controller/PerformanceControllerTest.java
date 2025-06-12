@@ -22,7 +22,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testGetProductionFetchPerformance() throws Exception {
-        mockMvc.perform(get("/performance/production-fetch"))
+        mockMvc.perform(get("/performance/fac-production-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").isNumber())
             .andExpect(jsonPath("$.memoryUsedKb").isNumber())
@@ -36,7 +36,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testGetRawMaterialFetchPerformance() throws Exception {
-        mockMvc.perform(get("/performance/raw-material-fetch"))
+        mockMvc.perform(get("/performance/commodity-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").isNumber())
             .andExpect(jsonPath("$.memoryUsedKb").isNumber())
@@ -50,7 +50,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testSalesFetchPerformance() throws Exception {
-        mockMvc.perform(get("/performance/raw-material-fetch"))
+        mockMvc.perform(get("/performance/commodity-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").isNumber())
             .andExpect(jsonPath("$.memoryUsedKb").isNumber())
@@ -64,7 +64,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testProductionFetchPerformanceResponseStructure() throws Exception {
-        mockMvc.perform(get("/performance/production-fetch"))
+        mockMvc.perform(get("/performance/fac-production-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").exists())
             .andExpect(jsonPath("$.memoryUsedKb").exists())
@@ -74,7 +74,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testRawMaterialFetchPerformanceResponseStructure() throws Exception {
-        mockMvc.perform(get("/performance/raw-material-fetch"))
+        mockMvc.perform(get("/performance/commodity-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").exists())
             .andExpect(jsonPath("$.memoryUsedKb").exists())
@@ -84,7 +84,7 @@ public class PerformanceControllerTest {
 
     @Test
     public void testSalesFetchPerformanceResponseStructure() throws Exception {
-        mockMvc.perform(get("/performance/raw-material-fetch"))
+        mockMvc.perform(get("/performance/commodity-fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.durationMs").exists())
             .andExpect(jsonPath("$.memoryUsedKb").exists())
@@ -102,7 +102,7 @@ public class PerformanceControllerTest {
     public void testPerformanceEndpointsAreReasonablyFast() throws Exception {
         long startTime = System.currentTimeMillis();
         
-        mockMvc.perform(get("/performance/production-fetch"))
+        mockMvc.perform(get("/performance/fac-production-fetch"))
             .andExpect(status().isOk());
             
         long endTime = System.currentTimeMillis();
@@ -115,11 +115,11 @@ public class PerformanceControllerTest {
     @Test
     public void testMultipleConsecutiveCalls() throws Exception {
         for (int i = 0; i < 3; i++) {
-            mockMvc.perform(get("/performance/production-fetch"))
+            mockMvc.perform(get("/performance/fac-production-fetch"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.durationMs").isNumber());
                 
-            mockMvc.perform(get("/performance/raw-material-fetch"))
+            mockMvc.perform(get("/performance/commodity-fetch"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.durationMs").isNumber());
             

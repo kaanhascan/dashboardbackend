@@ -25,7 +25,7 @@ public class PerformanceService {
     @Autowired
     private SalesService SalesService;
 
-    public PerformanceResultDTO measureProductionFetch() {
+    public PerformanceResultDTO measureFacProductionFetch() {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
@@ -38,7 +38,7 @@ public class PerformanceService {
         return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(),cpuPercent);
     }
 
-    public PerformanceResultDTO measureRawMaterialFetch() {
+    public PerformanceResultDTO measureCommodityFetch() {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 

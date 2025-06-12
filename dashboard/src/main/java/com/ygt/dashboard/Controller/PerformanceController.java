@@ -20,14 +20,14 @@ public class PerformanceController {
     @Autowired
     private PerformanceService performanceService;
 
-    @GetMapping("/production-fetch")
-    public ResponseEntity<PerformanceResultDTO> getProductionFetchPerformance() {
-        return ResponseEntity.ok(performanceService.measureProductionFetch());
+    @GetMapping("/fac-production-fetch")
+    public ResponseEntity<PerformanceResultDTO> getFacProductionFetchPerformance() {
+        return ResponseEntity.ok(performanceService.measureFacProductionFetch());
     }
 
-    @GetMapping("/raw-material-fetch")
-    public ResponseEntity<PerformanceResultDTO> getRawMaterialFetchPerformance() {
-        return ResponseEntity.ok(performanceService.measureRawMaterialFetch());
+    @GetMapping("/commodity-fetch")
+    public ResponseEntity<PerformanceResultDTO> getCommodityFetchPerformance() {
+        return ResponseEntity.ok(performanceService.measureCommodityFetch());
     }
 
     @GetMapping("/sales-fetch")
