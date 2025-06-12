@@ -20,6 +20,8 @@ public class DashboardApplication {
 
         System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
         System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
+        System.setProperty("DATABASE_USERNAME", dotenv.get("DATABASE_USERNAME"));
+        System.setProperty("DATABASE_PASSWORD", dotenv.get("DATABASE_PASSWORD"));
 
 		SpringApplication.run(DashboardApplication.class, args);
 	}
