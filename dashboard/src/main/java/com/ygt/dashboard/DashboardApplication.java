@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import com.ygt.dashboard.Repository.UserRepository;
 
@@ -25,6 +26,11 @@ public class DashboardApplication {
 
 		SpringApplication.run(DashboardApplication.class, args);
 	}
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 	//Bağlantı testi yaptım
     @Bean

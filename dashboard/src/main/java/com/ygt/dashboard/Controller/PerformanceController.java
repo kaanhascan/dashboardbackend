@@ -34,6 +34,11 @@ public class PerformanceController {
     public ResponseEntity<PerformanceResultDTO> getSalesFetchPerformance() {
         return ResponseEntity.ok(performanceService.measureSalesFetch());
     }
+
+    @GetMapping("/login-fetch")
+    public ResponseEntity<PerformanceResultDTO> getLoginPerformance() {
+        return ResponseEntity.ok(performanceService.measureLoginFetch());
+    }
     
 }
 
