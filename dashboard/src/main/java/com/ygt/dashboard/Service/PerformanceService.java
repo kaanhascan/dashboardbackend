@@ -15,6 +15,8 @@ import com.ygt.dashboard.DTO.SalesDTO;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.HardwareAbstractionLayer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
 @Service
@@ -32,12 +34,9 @@ public class PerformanceService {
     private RestTemplate restTemplate;
 
 
-    public PerformanceResultDTO measureFacProductionFetch() {
-        return measureFacProductionFetch(1000); 
-    }
 
     
-    public PerformanceResultDTO measureFacProductionFetch(int limit) {
+    public PerformanceResultDTO measureFacProductionFetch() {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
@@ -47,16 +46,25 @@ public class PerformanceService {
         long duration = (System.nanoTime() - start) / 1_000_000;
         int cpuPercent = getCpuLoadPercentage();
 
-        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent);
+        double jsonSizeKb = 0;
+        System.out.println("FacProductionDTO list size: " + data.size());
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            byte[] jsonBytes = objectMapper.writeValueAsBytes(data);
+            System.out.println("JSON byte length: " + jsonBytes.length);
+            jsonSizeKb = jsonBytes.length / 1024.0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent, jsonSizeKb);
     }
+
+    
 
     
     public PerformanceResultDTO measureCommodityFetch() {
-        return measureCommodityFetch(1000); 
-    }
-
-    
-    public PerformanceResultDTO measureCommodityFetch(int limit) {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
@@ -64,18 +72,26 @@ public class PerformanceService {
 
         long memAfter = getUsedMemory();
         long duration = (System.nanoTime() - start) / 1_000_000;
+        
         int cpuPercent = getCpuLoadPercentage();
 
-        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent);
+        double jsonSizeKb = 0;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            byte[] jsonBytes = objectMapper.writeValueAsBytes(data);
+            jsonSizeKb = jsonBytes.length / 1024.0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent,jsonSizeKb);
     }
+
+    
 
     
     public PerformanceResultDTO measureSalesFetch() {
-        return measureSalesFetch(1000); 
-    }
-
-    
-    public PerformanceResultDTO measureSalesFetch(int limit) {
         long start = System.nanoTime();
         long memBefore = getUsedMemory();
 
@@ -85,7 +101,17 @@ public class PerformanceService {
         long duration = (System.nanoTime() - start) / 1_000_000;
         int cpuPercent = getCpuLoadPercentage();
 
-        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent);
+        double jsonSizeKb = 0;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            byte[] jsonBytes = objectMapper.writeValueAsBytes(data);
+            jsonSizeKb = jsonBytes.length / 1024.0;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }   
+
+        return new PerformanceResultDTO(duration, memAfter - memBefore, data.size(), cpuPercent, jsonSizeKb);
     }
 
     public PerformanceResultDTO measureLoginFetch() {
@@ -110,14 +136,16 @@ public class PerformanceService {
             
             int recordCount = response.getStatusCode().is2xxSuccessful() ? 1 : 0;
             
-            return new PerformanceResultDTO(duration, memAfter - memBefore, recordCount, cpuPercent);
+            
+            return new PerformanceResultDTO(duration, memAfter - memBefore, recordCount, cpuPercent, 0);
             
         } catch (Exception e) {
             long memAfter = getUsedMemory();
             long duration = (System.nanoTime() - start) / 1_000_000;
             int cpuPercent = getCpuLoadPercentage();
             
-            return new PerformanceResultDTO(duration, memAfter - memBefore, 0, cpuPercent);
+            
+            return new PerformanceResultDTO(duration, memAfter - memBefore, 0, cpuPercent, 0);
         }
     }
 
