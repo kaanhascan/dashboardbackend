@@ -47,12 +47,10 @@ public class PerformanceService {
         int cpuPercent = getCpuLoadPercentage();
 
         double jsonSizeKb = 0;
-        System.out.println("FacProductionDTO list size: " + data.size());
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             byte[] jsonBytes = objectMapper.writeValueAsBytes(data);
-            System.out.println("JSON byte length: " + jsonBytes.length);
             jsonSizeKb = jsonBytes.length / 1024.0;
         } catch (Exception e) {
             e.printStackTrace();

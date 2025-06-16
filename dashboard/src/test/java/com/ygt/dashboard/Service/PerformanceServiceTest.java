@@ -48,6 +48,7 @@ public class PerformanceServiceTest {
         assertTrue(result.getDurationMs() >= 0);
         assertTrue(result.getMemoryUsedKb() >= 0);
         assertTrue(result.getCpuPercent() >= 0);
+        assertTrue(result.getJsonSizeKb() >= 0);
     }
 
     @Test
@@ -61,6 +62,7 @@ public class PerformanceServiceTest {
         assertTrue(result.getDurationMs() >= 0);
         assertTrue(result.getMemoryUsedKb() >= 0);
         assertTrue(result.getCpuPercent() >= 0);
+        assertTrue(result.getJsonSizeKb() >= 0);
     }
 
     @Test
@@ -74,5 +76,6 @@ public class PerformanceServiceTest {
         assertTrue(result.getDurationMs() >= 0);
         assertTrue(result.getMemoryUsedKb() >= 0);
         assertTrue(result.getCpuPercent() >= 0);
+        assertTrue(result.getJsonSizeKb() >= 0);
     }
 }
