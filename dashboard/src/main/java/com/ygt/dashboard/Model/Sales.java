@@ -30,7 +30,7 @@ public class Sales {
     @Column(name = "total_orders")
     private Integer totalOrders;
 
-    @Column(name = "product_sold")
+    @Column(name = "product_solds")
     private Integer productSold;
 
     @Column(name = "revenue")
